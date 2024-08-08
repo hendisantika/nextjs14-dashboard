@@ -2,11 +2,9 @@ import Search from '@/app/ui/search';
 import {CreateInvoice} from '@/app/ui/invoices/buttons';
 import {lusitana} from '@/app/ui/fonts';
 import {MerchantTableSkeleton} from "@/app/ui/skeletons";
-import React, {Suspense} from "react";
+import React, {Suspense, useActionState,} from "react";
 import Table from '@/app/ui/invoices/table';
-import Pagination from "@/app/ui/invoices/pagination";
 import {Metadata} from "next";
-import {fetchMerchantPages} from "@/app/lib/merchantsData";
 
 export const metadata: Metadata = {
     title: 'Merchants',
@@ -22,7 +20,19 @@ export default async function Page({
 }) {
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
-    const totalPages = await fetchMerchantPages(query);
+    let count;
+    const [data, setData] = useActionState(fetchData, null);
+
+    async function fetchData() {
+        'use server'
+        const response = await fetch('https://61a0ea8a6c3b400017e69ae8.mockapi.io/api/v1/users/merchants');
+        const result = await response.json();
+        return result;
+    }
+
+    count = data.length;
+
+    // const totalPages = await fetchMerchantPages(query);
     return (
         <div className="w-full">
             <div className="flex w-full items-center justify-between">
@@ -36,7 +46,7 @@ export default async function Page({
                 <Table query={query} currentPage={currentPage}/>
             </Suspense>
             <div className="mt-5 flex w-full justify-center">
-                <Pagination totalPages={totalPages}/>
+                {/*<Pagination totalPages={totalPages}/>*/}
             </div>
         </div>
     );
