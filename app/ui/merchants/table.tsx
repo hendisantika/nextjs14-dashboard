@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import {UpdateInvoice} from '@/app/ui/merchants/buttons';
-import InvoiceStatus from '@/app/ui/invoices/status';
 import {formatCurrency, formatDateToLocal} from '@/app/lib/utils';
 import {fetchFilteredMerchants} from "@/app/lib/dataMerchants";
 
@@ -37,7 +35,7 @@ export default async function MerchantsTable({
                                         </div>
                                         <p className="text-sm text-gray-500">{invoice.email}</p>
                                     </div>
-                                    <InvoiceStatus status={invoice.status}/>
+                                    {/*<InvoiceStatus status={invoice.status}/>*/}
                                 </div>
                                 <div className="flex w-full items-center justify-between pt-4">
                                     <div>
@@ -47,8 +45,8 @@ export default async function MerchantsTable({
                                         <p>{formatDateToLocal(invoice.date)}</p>
                                     </div>
                                     <div className="flex justify-end gap-2">
-                                        <UpdateInvoice id={invoice.id}/>
-                                        <DeleteInvoice id={invoice.id}/>
+                                        {/*<UpdateInvoice id={invoice.id}/>*/}
+                                        {/*<DeleteInvoice id={invoice.id}/>*/}
                                     </div>
                                 </div>
                             </div>
@@ -105,12 +103,12 @@ export default async function MerchantsTable({
                                     {formatDateToLocal(invoice.date)}
                                 </td>
                                 <td className="whitespace-nowrap px-3 py-3">
-                                    <InvoiceStatus status={invoice.status}/>
+                                    {/*<InvoiceStatus status={invoice.status}/>*/}
                                 </td>
                                 <td className="whitespace-nowrap py-3 pl-6 pr-3">
                                     <div className="flex justify-end gap-3">
-                                        <UpdateInvoice id={invoice.id}/>
-                                        <DeleteInvoice id={invoice.id}/>
+                                        {/*<UpdateInvoice id={invoice.id}/>*/}
+                                        {/*<DeleteInvoice id={invoice.id}/>*/}
                                     </div>
                                 </td>
                             </tr>

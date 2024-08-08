@@ -1,14 +1,14 @@
+'use client'
 import Search from '@/app/ui/search';
-import {CreateInvoice} from '@/app/ui/invoices/buttons';
 import {lusitana} from '@/app/ui/fonts';
 import {MerchantTableSkeleton} from "@/app/ui/skeletons";
-import React, {Suspense, useActionState,} from "react";
-import Table from '@/app/ui/invoices/table';
-import {Metadata} from "next";
+import React, {Suspense, useEffect, useState,} from "react";
+import {CreateMerchant} from "@/app/ui/merchants/buttons";
+import Table from '@/app/ui/merchants/table';
 
-export const metadata: Metadata = {
-    title: 'Merchants',
-};
+// export const metadata: Metadata = {
+//     title: 'Merchants',
+// };
 
 export default async function Page({
                                        searchParams,
@@ -20,17 +20,21 @@ export default async function Page({
 }) {
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
-    let count;
-    const [data, setData] = useActionState(fetchData, null);
+    // let count;
+    const [data, setData] = useState(null);
 
-    async function fetchData() {
-        'use server'
+    const fetchData = async () => {
+
         const response = await fetch('https://61a0ea8a6c3b400017e69ae8.mockapi.io/api/v1/users/merchants');
         const result = await response.json();
-        return result;
+        setData(result)
     }
+    useEffect(() => {
+        fetchData()
 
-    count = data.length;
+    }, [])
+
+    // const count = data?.length || 0;
 
     // const totalPages = await fetchMerchantPages(query);
     return (
@@ -40,7 +44,7 @@ export default async function Page({
             </div>
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
                 <Search placeholder="Search merchants..."/>
-                <CreateInvoice/>
+                <CreateMerchant/>
             </div>
             <Suspense key={query + currentPage} fallback={<MerchantTableSkeleton/>}>
                 <Table query={query} currentPage={currentPage}/>

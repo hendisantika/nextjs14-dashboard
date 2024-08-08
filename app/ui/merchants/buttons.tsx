@@ -2,7 +2,7 @@ import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import {deleteMerchant} from "@/app/lib/merchants";
 
-export function CreateInvoice() {
+export function CreateMerchant() {
     return (
         <Link
             href="/dashboard/merchants/create"
@@ -14,7 +14,7 @@ export function CreateInvoice() {
     );
 }
 
-export function UpdateInvoice({id}: { id: string }) {
+export function UpdateMerchant({id}: { id: string }) {
     return (
         <Link
             href={`/dashboard/merchants/${id}/edit`}
